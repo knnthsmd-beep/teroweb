@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lechon Kawali Order Form</title>
+<style>
+    body {
+        font-family: 'Courier New', monospace;
+        background: #fff2e6;
+        padding: 20px;
+    }
+    h1 { text-align: center; color: #ff6600; margin-bottom: 20px; }
+
+    form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input, select { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; }
+    input[type="checkbox"] { width: auto; margin-right: 10px; }
+
+    button {
+        background: #ff6600;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+    button:hover { background: #e65c00; }
+
+    /* Receipt Popup */
+    #receiptPopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        width: 90%;
+        max-width: 400px;
+        z-index: 1000;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #receiptPopup h2 {
+        text-align: center;
+        color: #ff6600;
+        margin-bottom: 10px;
+    }
+
+    #receiptPopup p {
+        margin: 5px 0;
+    }
+
+    #receiptPopup button {
+        margin-top: 15px;
+        background: #555;
+    }
+
+    /* Overlay */
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 500;
+    }
+</style>
+</head>
+<body>
+
+<h1>Lechon Kawali Order Form</h1>
+
+<form id="orderForm">
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="contact">Contact Number:</label>
+    <input type="text" id="contact" required>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" min="1" value="1" required>
+
+    <label for="size">Size:</label>
+    <select id="size">
+        <option value="Small">Small (₱250)</option>
+        <option value="Large">Large (₱400)</option>
+    </select>
+
+    <label>Add-ons:</label>
+    <input type="checkbox" id="addon1" value="Extra Sauce"> Extra Sauce (₱20)<br>
+    <input type="checkbox" id="addon2" value="Rice"> Rice (₱50)<br>
+    <input type="checkbox" id="addon3" value="Drink"> Drink (₱30)<br><br>
+
+    <label for="payment">Payment Amount:</label>
+    <input type="number" id="payment" min="0" value="0" required>
+
+    <p><strong>Total:</strong> ₱<span id="totalPrice">0</span></p>
+    <p><strong>Change:</strong> ₱<span id="change">0</span></p>
+
+    <button type="button" onclick="placeOrder()">Place Order</button>
+</form>
+
+<!-- Overlay -->
+<div id="overlay"></div>
+
+<!-- Receipt Popup -->
+<div id="receiptPopup">
+    <h2>Order Receipt</h2>
+    <div id="receiptContent"></div>
+    <button onclick="closeReceipt()">Close</button>
+</div>
+
+<script>
+function calculateTotal() {
+    const quantity = parseInt(document.getElementById('quantity').value) || 0;
+    const size = document.getElementById('size').value;
+    const payment = parseFloat(document.getElementById('payment').value) || 0;
+
+    const pricePerPiece = size === 'Large' ? 400 : 250;
+
+    let addonsPrice = 0;
+    let addons = [];
+    if(document.getElementById('addon1').checked) { addonsPrice += 20; addons.push('Extra Sauce'); }
+    if(document.getElementById('addon2').checked) { addonsPrice += 50; addons.push('Rice'); }
+    if(document.getElementById('addon3').checked) { addonsPrice += 30; addons.push('Drink'); }
+
+    const total = quantity * pricePerPiece + addonsPrice;
+    const change = payment - total;
+
+    document.getElementById('totalPrice').textContent = total.toFixed(2);
+    document.getElementById('change').textContent = change >= 0 ? change.toFixed(2) : 'Not enough';
+    
+    return { total, change, addons };
+}
+
+// Update total whenever input changes
+['quantity','size','addon1','addon2','addon3','payment'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calculateTotal);
+    document.getElementById(id).addEventListener('change', calculateTotal);
+});
+
+function placeOrder() {
+    const name = document.getElementById('name').value.trim();
+    const contact = document.getElementById('contact').value.trim();
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const size = document.getElementById('size').value;
+    const payment = parseFloat(document.getElementById('payment').value);
+
+    const { total, change, addons } = calculateTotal();
+
+    if(payment < total) {
+        alert('Payment is not enough!');
+        return;
+    }
+
+    const receiptContent = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Contact:</strong> ${contact}</p>
+        <p><strong>Quantity:</strong> ${quantity}</p>
+        <p><strong>Size:</strong> ${size}</p>
+        <p><strong>Add-ons:</strong> ${addons.length ? addons.join(', ') : 'None'}</p>
+        <p><strong>Total Price:</strong> ₱${total.toFixed(2)}</p>
+        <p><strong>Payment:</strong> ₱${payment.toFixed(2)}</p>
+        <p><strong>Change:</strong> ₱${change.toFixed(2)}</p>
+        <hr>
+        <p style="text-align:center;">Thank you for your order!</p>
+    `;
+
+    document.getElementById('receiptContent').innerHTML = receiptContent;
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('receiptPopup').style.display = 'block';
+}
+
+function closeReceipt() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('receiptPopup').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

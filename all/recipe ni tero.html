@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sinigang na Bangus — Recipe</title>
+  <style>
+    :root{ --bg:#fbfbfe; --card:#fff; --muted:#6b7280; --accent:#ef4444; --accent-2:#f97316; }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#0f172a; -webkit-font-smoothing:antialiased}
+    header{background:linear-gradient(90deg, rgba(239,68,68,0.12), rgba(249,115,22,0.06)); padding:28px 20px; display:flex; align-items:center; gap:16px}
+    .logo{width:64px; height:64px; border-radius:8px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:flex; align-items:center; justify-content:center; color:white; font-weight:700}
+    .container{max-width:980px; margin:24px auto; padding:0 16px}
+    .grid{display:grid; grid-template-columns:1fr 340px; gap:20px}
+    @media (max-width:880px){ .grid{grid-template-columns:1fr} }
+    .card{background:var(--card); border-radius:14px; padding:18px; box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h1{margin:0 0 6px; font-size:1.6rem}
+    .meta{color:var(--muted); font-size:0.95rem}
+    .hero{border-radius:10px; overflow:hidden; height:220px; background-image:url('https://images.unsplash.com/photo-1604908176913-93f4f0a9e8b3?auto=format&fit=crop&w=1400&q=60'); background-size:cover; background-position:center}
+    ul{padding-left:18px}
+    .ingredients li, .steps li{margin-bottom:8px}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn-primary{background:var(--accent); color:white}
+    .btn-ghost{background:transparent;border:1px solid rgba(15,23,42,0.06)}
+    .small{font-size:0.9rem}
+    .info-row{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:12px}
+    .chip{background:#fff6f6; color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:600; font-size:0.9rem}
+    .notes{font-size:0.95rem; color:#374151}
+    .print-hidden{display:none}
+    .toc{margin-top:12px}
+    .card-aside .card{position:sticky; top:20px}
+    footer{max-width:980px;margin:24px auto;padding:0 16px;color:var(--muted); font-size:0.9rem}
+    .actions{display:flex; gap:8px; margin-top:12px}
+    .copy-success{color:green; font-weight:600}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SN</div>
+    <div>
+      <div style="font-weight:700">Sinigang na Bangus</div>
+      <div style="color:var(--muted); font-size:0.95rem">Simple Filipino recipe — view, print, or copy</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section>
+        <div class="card">
+          <div class="hero" role="img" aria-label="Sinigang na Bangus"></div>
+          <div style="padding-top:14px">
+            <h1>Sinigang na Bangus</h1>
+            <div class="meta">Serves 4–5 • Prep 15 min • Cook 20 min</div>
+            <div class="info-row">
+              <div class="chip">Filipino</div>
+              <div class="chip">Sour (Tamarind)</div>
+              <div class="chip">Fish</div>
+            </div>
+
+            <div class="toc small" style="margin-top:16px">
+              <strong>Jump to:</strong>
+              <a class="small" href="#ingredients"> Ingredients</a> •
+              <a class="small" href="#steps">Steps</a> •
+              <a class="small" href="#notes">Notes</a>
+            </div>
+
+            <hr style="margin:16px 0" />
+
+            <h3 id="ingredients">Ingredients</h3>
+            <ul class="ingredients">
+              <li>1 whole bangus (milkfish), cleaned and sliced</li>
+              <li>1 medium onion, quartered</li>
+              <li>2 medium tomatoes, quartered</li>
+              <li>1 medium labanos (daikon), sliced</li>
+              <li>10–12 pcs sitaw (string beans), cut 2"</li>
+              <li>1 medium eggplant, sliced</li>
+              <li>1 bunch kangkong (water spinach)</li>
+              <li>1–2 pcs siling haba (optional)</li>
+              <li>1 pack sinigang mix or 1 cup fresh sampalok broth</li>
+              <li>2 tbsp patis (fish sauce) or to taste</li>
+              <li>Salt & pepper to taste</li>
+              <li>5 cups water</li>
+            </ul>
+
+            <h3 id="steps">Steps</h3>
+            <ol class="steps">
+              <li>In a pot, bring 5 cups of water to a boil with onion and tomatoes. Simmer 5 minutes.</li>
+              <li>Add labanos, sitaw, and eggplant. Cover and simmer 5–7 minutes until half-cooked.</li>
+              <li>Gently add bangus slices (to avoid breaking). Simmer 5–8 minutes until cooked through.</li>
+              <li>Stir in sinigang mix or fresh tamarind broth and fish sauce. Add siling haba if using.</li>
+              <li>Taste and adjust seasoning. Add kangkong, simmer 1 minute, then turn off heat.</li>
+            </ol>
+
+            <div class="actions">
+              <button class="btn btn-primary" id="printBtn">Print / Save PDF</button>
+              <button class="btn btn-ghost" id="copyBtn">Copy Recipe Text</button>
+            </div>
+
+            <p id="copyMsg" class="small" style="margin-top:8px"></p>
+
+            <hr style="margin:18px 0" />
+
+            <h3 id="notes">Notes</h3>
+            <p class="notes">Use fresh sampalok for a cleaner, more natural sourness. If you prefer less fish oil in the broth, remove some of the fish skin before simmering. Swap bangus for tilapia or shrimp if desired.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+          <div class="card" style="flex:1; min-width:220px">
+            <div style="padding:12px">
+              <strong>Nutritional tip</strong>
+              <p class="small" style="margin:6px 0">Sinigang is low in calories and high in vegetables — keep the salt moderate and use more vegetables for bulk.</p>
+            </div>
+          </div>
+
+          <div class="card" style="width:240px; min-width:200px">
+            <div style="padding:12px">
+              <strong>Variations</strong>
+              <ul class="small" style="margin:6px 0 0 18px">
+                <li>Use fresh sampalok instead of mix</li>
+                <li>Add gabi (taro) for thicker broth</li>
+                <li>Make it spicy with siling labuyo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card-aside">
+        <div class="card">
+          <h3 style="margin-top:0">Shopping List</h3>
+          <p class="small">Tap each item to toggle purchase status. Useful when prepping for the market.</p>
+          <ul id="shopping" style="margin-top:8px">
+            <li><label><input type="checkbox"> Bangus (milkfish)</label></li>
+            <li><label><input type="checkbox"> Onion</label></li>
+            <li><label><input type="checkbox"> Tomatoes</label></li>
+            <li><label><input type="checkbox"> Labanos</label></li>
+            <li><label><input type="checkbox"> Sitaw</label></li>
+            <li><label><input type="checkbox"> Eggplant</label></li>
+            <li><label><input type="checkbox"> Kangkong</label></li>
+            <li><label><input type="checkbox"> Sinigang mix / Sampalok</label></li>
+            <li><label><input type="checkbox"> Patis</label></li>
+          </ul>
+          <div style="margin-top:12px; display:flex; gap:8px">
+            <button class="btn btn-ghost" id="clearChecklist">Clear</button>
+            <button class="btn btn-primary" id="saveChecklist">Save</button>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">About this page</h4>
+          <p class="small" style="margin:0">Single-file recipe demo. Open this HTML file in a browser to view or print. You can edit ingredients or steps directly in the file.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    Made with ❤️ — try editing the file to match your style. Want a multi‑page site or printable card? Ask me to add it.
+  </footer>
+
+  <script>
+    // Print button
+    document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+    // Copy recipe
+    document.getElementById('copyBtn').addEventListener('click', async function(){
+      const txt = [
+        'Sinigang na Bangus\n',
+        'Ingredients:\n',
+        ...Array.from(document.querySelectorAll('.ingredients li')).map(li=>'- '+li.textContent), '\n',
+        'Steps:\n',
+        ...Array.from(document.querySelectorAll('.steps li')).map((li,i)=> (i+1)+'. '+li.textContent)
+      ].flat().join('\n');
+      try{
+        await navigator.clipboard.writeText(txt);
+        const msg = document.getElementById('copyMsg');
+        msg.textContent = 'Recipe copied to clipboard!';
+        setTimeout(()=> msg.textContent = '', 2500);
+      }catch(e){ alert('Could not copy: '+e);
+      }
+    });
+
+    // Checklist save to localStorage
+    const checklist = document.getElementById('shopping');
+    const saveBtn = document.getElementById('saveChecklist');
+    const clearBtn = document.getElementById('clearChecklist');
+    const key = 'sinigang_shopping_v1';
+
+    function loadChecklist(){
+      const data = JSON.parse(localStorage.getItem(key) || '[]');
+      const inputs = checklist.querySelectorAll('input');
+      inputs.forEach((cb,i)=> cb.checked = !!data[i]);
+    }
+    function saveChecklist(){
+      const inputs = checklist.querySelectorAll('input');
+      const data = Array.from(inputs).map(i=>i.checked);
+      localStorage.setItem(key, JSON.stringify(data));
+      saveBtn.textContent = 'Saved';
+      setTimeout(()=> saveBtn.textContent = 'Save', 1200);
+    }
+    function clearChecklist(){
+      const inputs = checklist.querySelectorAll('input');
+      inputs.forEach(i=> i.checked = false);
+      localStorage.removeItem(key);
+    }
+    saveBtn.addEventListener('click', saveChecklist);
+    clearBtn.addEventListener('click', clearChecklist);
+    loadChecklist();
+  </script>
+</body>
+</html>
